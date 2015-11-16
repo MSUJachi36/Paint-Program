@@ -1,0 +1,119 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package Draw;
+
+import java.awt.Color;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.Image;
+import javax.swing.JPanel;
+import java.awt.event.*;
+import java.util.Random;
+
+
+/**
+ *
+ * @author jachikemadubuko
+ */
+public class ThePaintP extends JPanel implements MouseListener
+{
+   public static ThePaintP inst;
+   private int startX, startY, endX, endY;
+   private Graphics picArray[];
+   
+   ThePaintP()
+   {
+       setBackground(Color.WHITE);
+       addMouseListener(this); 
+       
+       
+   }
+   
+   public static ThePaintP getInstance()
+   {
+       if(inst == null)
+           inst = new ThePaintP();
+       return inst;
+   }
+   
+   public void fillrect(Graphics g)
+   {
+       Image image = this.createImage(200, 200); //arbitrary numbers 
+       g = image.getGraphics();
+       Graphics2D g2 = (Graphics2D)g;
+       g.setColor(Color.red);
+       g.fillRect(startX, startY, (endX - startX), (endY -startY));
+       g.dispose();
+       g.drawImage(image, startX, startY, null);
+   }
+   
+   
+   public void clrrect(Graphics g)
+   {
+       Image image = this.createImage(200, 200); //arbitrary numbers 
+       g = image.getGraphics();
+       Graphics2D g2 = (Graphics2D)g;
+       g.setColor(Color.red);
+       g.clearRect(startX, startY, (endX - startX), (endY -startY));
+       g.dispose();
+       g.drawImage(image, startX, startY, null);
+   }
+   
+   public void filloval(Graphics g)
+   {
+       Image image = this.createImage(200, 200); //arbitrary numbers 
+       g = image.getGraphics();
+       Graphics2D g2 = (Graphics2D)g;
+       g.setColor(Color.red);
+       g.fillOval(startX, startY, (endX - startX), (endY -startY));
+       g.dispose();
+       g.drawImage(image, startX, startY, null);
+   }
+  
+   
+   public void clroval(Graphics g)
+   {
+       Image image = this.createImage(200, 200); //arbitrary numbers 
+       g = image.getGraphics();
+       Graphics2D g2 = (Graphics2D)g;
+       g.setColor(Color.red);
+       g.drawOval(startX, startY, (endX - startX), (endY -startY));
+       g.dispose();
+       g.drawImage(image, startX, startY, null);
+   }
+   public void mouseExited(MouseEvent e){ }
+   public void mouseEntered(MouseEvent e){}
+   public void mouseClicked(MouseEvent e){}
+   public void mousePressed(MouseEvent e)
+   {
+       startX = e.getX();
+       startY = e.getY();
+       System.out.println("Start:" + startX + " " + startY);
+   }
+   public void mouseReleased(MouseEvent e)
+   {
+       endX = e.getX();
+       endY = e.getY();
+       System.out.println("End:" + endX + " " + endY);
+   }
+}
+
+/*
+1) first create the buffer from any component (e.g. a Panel):
+
+Image image = panel.createImage(width, height);
+2) get the graphics context for the image:
+
+Graphics g = image.getGraphics();
+3) finally when done drawing into the buffer:
+
+g.dispose();
+Later, to draw the image onto your component:
+
+void paintComponent(Graphics g) {
+  g.drawImage(image, x_offset, y_offset, null);
+}
+*/
