@@ -14,21 +14,21 @@ import java.awt.event.*;
 public class TheButtonP extends JPanel implements ActionListener
 {
     public static TheButtonP inst;
-    private JButton rectFill = new JButton("Colored Rectangle"); 
-    private JButton rectEmpty = new JButton("Outlined Rectangle");
-    private JButton ovalFill =  new JButton("Colored Oval");
-    private JButton ovalEmpty =  new JButton("Outlined Oval");
     private JButton clear = new JButton("Clear");
-    Graphics g;
     
     TheButtonP()
     {
-        setBackground(Color.BLUE);
-        setLayout(new FlowLayout());
+        JButton rectFill = new JButton("Colored Rectangle");
         rectFill.addActionListener(this);
+        
+        JButton rectEmpty = new JButton("Outlined Rectangle");
         rectEmpty.addActionListener(this);
+        JButton ovalFill =  new JButton("Colored Oval");
         ovalFill.addActionListener(this);
-        ovalEmpty.addActionListener(this);
+        JButton ovalEmpty =  new JButton("Outlined Oval");
+        ovalEmpty.addActionListener(this); 
+        setBackground(Color.DARK_GRAY);
+        setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         add(rectFill);
         add(rectEmpty);
         add(ovalFill);
@@ -48,19 +48,19 @@ public class TheButtonP extends JPanel implements ActionListener
         
         if(evt.getActionCommand().equals("Colored Rectangle"))
         {
-            ThePaintP.getInstance().fillrect(g);
+            ThePaintP.getInstance().setShape(1);
         }
         else if(evt.getActionCommand().equals("Outlined Rectangle"))
         {
-            ThePaintP.getInstance().clrrect(g);
+            ThePaintP.getInstance().setShape(2);
         }
         else if(evt.getActionCommand().equals("Colored Oval"))
         {
-            ThePaintP.getInstance().filloval(g);
+            ThePaintP.getInstance().setShape(3);
         }
         else if(evt.getActionCommand().equals("Outlined Oval"))
         {
-            ThePaintP.getInstance().clroval(g);
+            ThePaintP.getInstance().setShape(4);
         }
     }
 }
