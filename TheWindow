@@ -1,0 +1,33 @@
+
+import Button.TheButtonP;
+import Draw.ThePaintP;
+import java.awt.BorderLayout;
+import java.awt.Container;
+import javax.swing.JFrame;
+
+/**
+ *
+ * @author jachikemadubuko
+ */
+public class TheWindow extends JFrame 
+{
+    public static TheWindow inst;
+
+    TheWindow() {
+        super("MainFrame");
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        Container c = getContentPane();
+        c.add(TheButtonP.getInstance(), BorderLayout.NORTH);
+        c.add(ThePaintP.getInstance(), BorderLayout.CENTER);
+        setSize(500, 500);
+        setVisible(true);
+    }
+    
+    public static TheWindow getInstance()
+    {
+        if(inst == null)
+            inst = new TheWindow();
+        return inst;
+    }
+    
+}

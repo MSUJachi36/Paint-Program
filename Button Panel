@@ -1,0 +1,66 @@
+package Button;
+
+import Draw.ThePaintP;
+import java.awt.Color;
+import java.awt.FlowLayout;
+import java.awt.Graphics;
+import javax.swing.*;
+import java.awt.event.*;
+
+/**
+ *
+ * @author jachikemadubuko
+ */
+public class TheButtonP extends JPanel implements ActionListener
+{
+    public static TheButtonP inst;
+    private JButton clear = new JButton("Clear");
+    
+    TheButtonP()
+    {
+        JButton rectFill = new JButton("Colored Rectangle");
+        rectFill.addActionListener(this);
+        
+        JButton rectEmpty = new JButton("Outlined Rectangle");
+        rectEmpty.addActionListener(this);
+        JButton ovalFill =  new JButton("Colored Oval");
+        ovalFill.addActionListener(this);
+        JButton ovalEmpty =  new JButton("Outlined Oval");
+        ovalEmpty.addActionListener(this); 
+        setBackground(Color.DARK_GRAY);
+        setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+        add(rectFill);
+        add(rectEmpty);
+        add(ovalFill);
+        add(ovalEmpty);
+    }
+    
+    public static TheButtonP getInstance()
+    {
+        if(inst == null)
+            inst = new TheButtonP();
+        return inst;
+    }
+    
+    public void actionPerformed(ActionEvent evt)
+    {
+        System.out.println(evt.getActionCommand());
+        
+        if(evt.getActionCommand().equals("Colored Rectangle"))
+        {
+            ThePaintP.getInstance().setShape(1);
+        }
+        else if(evt.getActionCommand().equals("Outlined Rectangle"))
+        {
+            ThePaintP.getInstance().setShape(2);
+        }
+        else if(evt.getActionCommand().equals("Colored Oval"))
+        {
+            ThePaintP.getInstance().setShape(3);
+        }
+        else if(evt.getActionCommand().equals("Outlined Oval"))
+        {
+            ThePaintP.getInstance().setShape(4);
+        }
+    }
+}

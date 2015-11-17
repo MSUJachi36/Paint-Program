@@ -1,0 +1,188 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package Draw;
+
+import java.awt.Color;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.Image;
+import javax.swing.*;
+import java.awt.event.*;
+import java.awt.image.BufferedImage;
+import java.util.Random;
+
+
+
+
+/**
+ *
+ * @author jachikemadubuko
+ */
+public class ThePaintP extends JPanel implements MouseListener
+{
+   public static ThePaintP inst;
+   private int startX, startY, endX, endY, shape;
+   BufferedImage grid;
+   Graphics2D gc;
+   
+   public ThePaintP()
+   {
+       setBackground(Color.WHITE);
+       addMouseListener(this);
+       this.setVisible(true);
+   }
+   
+   public static ThePaintP getInstance()
+   {
+       if(inst == null)
+           inst = new ThePaintP();
+       return inst;
+   }
+   
+   public void paintComponent(Graphics g)
+    { 
+         super.paintComponent(g);  
+         Graphics2D g2 = (Graphics2D)g;
+         if(grid == null){
+            int w = this.getWidth();
+            int h = this.getHeight();
+            grid = (BufferedImage)(this.createImage(w,h));
+            gc = grid.createGraphics();
+         }
+         g2.drawImage(grid, null, 0, 0);
+    }
+   
+   public void setShape(int s)
+   {
+       shape=s;
+   }
+   
+   public void drawShape(int x)
+   {
+       switch(x)
+       {
+           case 1:
+               fillrect();
+               break;
+           case 2:
+               clrrect();
+               break;
+           case 3:
+               filloval();
+               break;
+           case 4:
+               clroval();
+               break;
+           default:
+                    break;              
+       }
+               
+       
+       
+   }
+   public void fillrect()
+   {
+       gc.setColor(Color.red);
+       if(startX < endX)
+       {
+           if(startY < endY)
+               gc.fillRect(startX, startY, (endX - startX), (endY -startY));
+      
+           else
+               gc.fillRect(startX, endY, (endX-startX), (startY-endY));
+       }
+       else
+       {
+           if(startY < endY)
+               gc.fillRect(endX, startY, (startX - endX), (endY - startY));
+           else
+               gc.fillRect(endX, endY, (startX - endX), (startY- endY));
+       }
+       repaint();
+   }
+   
+   
+   public void clrrect()
+   {
+       gc.setColor(Color.red);
+       if(startX < endX)
+       {
+           if(startY < endY)
+               gc.drawRect(startX, startY, (endX - startX), (endY -startY));
+      
+           else
+               gc.drawRect(startX, endY, (endX-startX), (startY-endY));
+       }
+       else
+       {
+           if(startY < endY)
+               gc.drawRect(endX, startY, (startX - endX), (endY - startY));
+           else
+               gc.drawRect(endX, endY, (startX - endX), (startY- endY));
+       }
+       repaint();
+   }
+   
+   public void filloval()
+   {
+       gc.setColor(Color.red);
+       if(startX < endX)
+       {
+           if(startY < endY)
+               gc.fillOval(startX, startY, (endX - startX), (endY -startY));
+      
+           else
+               gc.fillOval(startX, endY, (endX-startX), (startY-endY));
+       }
+       else
+       {
+           if(startY < endY)
+               gc.fillOval(endX, startY, (startX - endX), (endY - startY));
+           else
+               gc.fillOval(endX, endY, (startX - endX), (startY- endY));
+       }
+       repaint();
+   }
+  
+   
+   public void clroval()
+   {
+       gc.setColor(Color.red);
+       if(startX < endX)
+       {
+           if(startY < endY)
+               gc.drawOval(startX, startY, (endX - startX), (endY -startY));
+      
+           else
+               gc.drawOval(startX, endY, (endX-startX), (startY-endY));
+       }
+       else
+       {
+           if(startY < endY)
+               gc.drawOval(endX, startY, (startX - endX), (endY - startY));
+           else
+               gc.drawOval(endX, endY, (startX - endX), (startY- endY));
+       }
+       repaint();
+   }
+   
+   public void mouseExited(MouseEvent e){ }
+   public void mouseEntered(MouseEvent e){}
+   public void mouseClicked(MouseEvent e){}
+   public void mousePressed(MouseEvent e)
+   {
+       startX = e.getX();
+       startY = e.getY();
+       System.out.println("Start:" + startX + " " + startY);
+   }
+   public void mouseReleased(MouseEvent e)
+   {
+       endX = e.getX();
+       endY = e.getY();
+       System.out.println("End:" + endX + " " + endY);
+       drawShape(shape);
+   }
+}
