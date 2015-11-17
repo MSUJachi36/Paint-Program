@@ -15,11 +15,11 @@ public class TheWindow extends JFrame
 
     TheWindow() {
         super("MainFrame");
+        setSize(500, 500);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         Container c = getContentPane();
-        c.add(TheButtonP.getInstance(), BorderLayout.NORTH);
+        c.add(TheButtonP.getInstance(), BorderLayout.WEST);
         c.add(ThePaintP.getInstance(), BorderLayout.CENTER);
-        setSize(500, 500);
         setVisible(true);
     }
     
