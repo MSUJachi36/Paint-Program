@@ -55,7 +55,7 @@ public class ThePaintP extends JPanel implements MouseListener
        shape=s;
    }
    
-   public void drawShape(int x)
+      public void drawShape(int x)
    {
        shape = x;
        switch(x)
@@ -72,10 +72,16 @@ public class ThePaintP extends JPanel implements MouseListener
            case 4:
                clroval();
                break;
+           case 5:
+               gc.setColor(Color.GREEN);
+               gc.drawLine(startX, startY, endX, endY);
+               repaint();
            default:
-                    break;              
+                    break;
        } 
+       repaint();
    }
+   
    public void fillrect()
    {
        gc.setColor(Color.RED);
