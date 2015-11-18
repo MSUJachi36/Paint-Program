@@ -1,5 +1,5 @@
 package Button;
-
+//imports
 import Draw.ThePaintP;
 import java.awt.Color;
 import java.awt.FlowLayout;
@@ -8,9 +8,10 @@ import javax.swing.*;
 import java.awt.event.*;
 
 /**
- *
- * @author jachikemadubuko
- */
+ * @author Jachi Madubuko
+ * @author Sam Knox
+**/
+
 public class TheButtonP extends JPanel implements ActionListener
 {
     public static TheButtonP inst;
@@ -18,9 +19,9 @@ public class TheButtonP extends JPanel implements ActionListener
     
     TheButtonP()
     {
+        //Buttons for shapes functions
         JButton rectFill = new JButton("Colored Rectangle");
         rectFill.addActionListener(this);
-        
         JButton rectEmpty = new JButton("Outlined Rectangle");
         rectEmpty.addActionListener(this);
         JButton ovalFill =  new JButton("Colored Oval");
@@ -42,25 +43,16 @@ public class TheButtonP extends JPanel implements ActionListener
         return inst;
     }
     
-    public void actionPerformed(ActionEvent evt)
+    public void actionPerformed(ActionEvent evt)    //buttons call on the paint panel
     {
         System.out.println(evt.getActionCommand());
-        
         if(evt.getActionCommand().equals("Colored Rectangle"))
-        {
             ThePaintP.getInstance().setShape(1);
-        }
         else if(evt.getActionCommand().equals("Outlined Rectangle"))
-        {
             ThePaintP.getInstance().setShape(2);
-        }
         else if(evt.getActionCommand().equals("Colored Oval"))
-        {
             ThePaintP.getInstance().setShape(3);
-        }
         else if(evt.getActionCommand().equals("Outlined Oval"))
-        {
             ThePaintP.getInstance().setShape(4);
-        }
     }
 }

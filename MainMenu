@@ -1,0 +1,43 @@
+package MainFrame;
+
+import Draw.ThePaintP;
+import java.awt.Color;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import javax.swing.*;
+
+/**
+ * @author Jachi Madubuko
+ * @author Sam Knox
+**/
+
+public class MainMenu extends JMenuBar implements ActionListener 
+{
+    private static MainMenu inst;
+    MainMenu()
+    {
+           JMenu edit = new JMenu("Edit");
+           JMenuItem clr_all = new JMenuItem("Erase All");
+           clr_all.addActionListener(this);
+           edit.add(clr_all);
+           add(edit);
+           setVisible(true);
+           
+    }
+    
+    public static MainMenu getInstance()
+    {
+        if(inst == null)
+            inst = new MainMenu();
+        return inst;
+    }
+    
+    public void actionPerformed(ActionEvent evt)
+    {
+        if(evt.getActionCommand()=="Erase All")
+        {
+            ThePaintP.getInstance().clr();
+            System.out.println(evt.getActionCommand());
+        }
+    }
+}
