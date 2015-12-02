@@ -1,0 +1,48 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package Draw;
+
+import java.awt.Color;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import javax.swing.JColorChooser;
+/**
+ * @author Jachi Madubuko
+ * @author Sam Knox
+**/
+
+public class ThePaintP extends JColorChooser implements ActionListener
+{
+    private static ThePaintP inst;
+    ThePaintP()
+    {
+        
+        setVisible(true);
+    }
+    
+    public static ThePaintP getInstance()
+    {
+        if(null == inst)
+            inst = new ThePaintP();
+        return inst;
+    }
+    
+    public Color pickedColor(int p)
+    {
+        Color picked = JColorChooser.showDialog(this, "Choose Background Color",getBackground());
+        if(p == 1)
+            TheDrawP.getInstance().setFill(picked);
+        else
+            TheDrawP.getInstance().setOutline(picked);
+        return picked;
+    }
+    
+    public void actionPerformed(ActionEvent es)
+    {
+        Color bgColor = JColorChooser.showDialog(this, "Choose Background Color",getBackground());
+    }
+        
+}
