@@ -1,0 +1,83 @@
+package Draw;
+
+import java.awt.BasicStroke;
+import javax.swing.JDialog;
+import javax.swing.JOptionPane;
+import javax.swing.JSlider;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
+
+import MainFrame.TheWindowF;
+/**
+ * @author Jachi Madubuko
+ * @author Sam Knox
+**/
+
+
+public class TheStrokeS extends JOptionPane
+{
+
+	public static TheStrokeS inst;
+        int val;
+	BasicStroke str;
+    private ChangeListener changeListener;
+	
+	public TheStrokeS() 
+	{
+            val = 1;
+	}
+        
+	public static TheStrokeS getInstance()
+        {
+            if(inst == null)
+                inst = new TheStrokeS();
+            return inst;
+        }   
+	
+        public void newStrokeSize()
+        {
+            JSlider strSlider = getSlider(this);
+	    setMessage(new Object[] {"Select a thickness: ", strSlider});
+	    setMessageType(JOptionPane.QUESTION_MESSAGE);
+            setOptionType(JOptionPane.OK_CANCEL_OPTION);
+            JDialog dialog = this.createDialog(TheWindowF.getInstance(), "Pen Size");
+	    dialog.setVisible(true);
+        }
+        
+	JSlider getSlider(final JOptionPane optP)
+	{
+           JSlider slide = new JSlider(1,10, val);
+           slide.setMajorTickSpacing(1);
+           slide.setPaintTicks(true);
+           slide.setPaintLabels(true);
+           slide.setSnapToTicks(true);
+            ChangeListener changeListener = new ChangeListener() 
+            {
+                public void stateChanged(ChangeEvent e) 
+                {
+                    JSlider theSlider = (JSlider) e.getSource();
+                    if (!theSlider.getValueIsAdjusting()) 
+                    {
+                        setStroke(theSlider.getValue());
+                    }
+                }
+            };
+            slide.addChangeListener(changeListener);
+            return slide;
+        }	
+       
+       
+	
+	public void setStroke(int size)
+	{
+		str = new BasicStroke(size);
+                val = size;
+	}
+	
+	public BasicStroke getStroke()
+	{
+           newStrokeSize();
+           return str;
+	}
+
+}
