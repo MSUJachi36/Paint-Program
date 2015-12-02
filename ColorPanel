@@ -1,0 +1,152 @@
+package main;
+
+import java.awt.Color;
+import javax.swing.*;
+import java.awt.event.*;
+import java.awt.*;
+
+/**
+ *
+ * @author SamuelKnox
+ */
+public class ColorPanel extends JPanel implements ActionListener
+{
+    public static final Color INDIGO = new Color(75, 0, 130);
+    public static final Color VIOLET = new Color(138,43,226);    
+    private static ColorPanel inst;
+//    public static final GridLayout CPanel = new GridLayout(2,7);
+    ColorPanel()
+    {
+        setLayout(new GridLayout(2,6,5,5));
+        JButton red = new JButton();          // red
+        red.setBackground(Color.RED);
+        red.setOpaque(true);
+        red.setBorderPainted(false);
+        red.addActionListener(this);
+        red.setActionCommand("R");
+        JButton orange = new JButton();       // orange
+        orange.setBackground(Color.ORANGE);
+        orange.setOpaque(true);
+        orange.setBorderPainted(false);
+        orange.addActionListener(this); 
+        orange.setActionCommand("O");
+        JButton yellow = new JButton();       // yellow
+        yellow.setBackground(Color.YELLOW);
+        yellow.setOpaque(true);
+        yellow.setBorderPainted(false);
+        yellow.addActionListener(this);
+        yellow.setActionCommand("Y");
+        JButton green = new JButton();        // green
+        green.setBackground(Color.GREEN);
+        green.setOpaque(true);
+        green.setBorderPainted(false);
+        green.addActionListener(this); 
+        green.setActionCommand("G");
+        JButton blue = new JButton();         // blue
+        blue.setBackground(Color.BLUE);
+        blue.setOpaque(true);
+        blue.setBorderPainted(false);
+        blue.addActionListener(this); 
+        blue.setActionCommand("B");
+        JButton indigo = new JButton();       // indigo
+        indigo.setBackground(INDIGO);
+        indigo.setOpaque(true);
+        indigo.setBorderPainted(false);
+        indigo.addActionListener(this); 
+        indigo.setActionCommand("I");
+        JButton violet = new JButton();       // violet
+        violet.setBackground(VIOLET); 
+        violet.setOpaque(true);
+        violet.setBorderPainted(false);
+        violet.addActionListener(this);
+        violet.setActionCommand("V");
+        this.setBackground(Color.LIGHT_GRAY);
+        add(red); add(orange); add(yellow); add(green);
+        add(blue); add(indigo); add(violet);
+        
+        JButton red1 = new JButton();          // red background
+        red1.setBackground(Color.RED);
+        red1.setOpaque(true);
+        red1.setBorderPainted(false);
+        red1.addActionListener(this);
+        red1.setActionCommand("R1");
+        JButton orange1 = new JButton();       // orange background
+        orange1.setBackground(Color.ORANGE);
+        orange1.setOpaque(true);
+        orange1.setBorderPainted(false);
+        orange1.addActionListener(this);
+        orange1.setActionCommand("O1");
+        JButton yellow1 = new JButton();       // yellow background
+        yellow1.setBackground(Color.YELLOW);
+        yellow1.setOpaque(true);
+        yellow1.setBorderPainted(false);
+        yellow1.addActionListener(this);
+        yellow1.setActionCommand("Y1");        
+        JButton green1 = new JButton();        // green background
+        green1.setBackground(Color.GREEN);
+        green1.setOpaque(true);
+        green1.setBorderPainted(false);
+        green1.addActionListener(this);       
+        green1.setActionCommand("G1");  
+        JButton blue1 = new JButton();         // blue background
+        blue1.setBackground(Color.BLUE);
+        blue1.setOpaque(true);
+        blue1.setBorderPainted(false);
+        blue1.addActionListener(this); 
+        blue1.setActionCommand("B1");
+        JButton indigo1 = new JButton();       // indigo background
+        indigo1.setBackground(INDIGO);
+        indigo1.setOpaque(true);
+        indigo1.setBorderPainted(false);
+        indigo1.addActionListener(this); 
+        indigo1.setActionCommand("I1");
+        JButton violet1 = new JButton();       // violet background
+        violet1.setBackground(VIOLET); 
+        violet1.setOpaque(true);
+        violet1.setBorderPainted(false);
+        violet1.addActionListener(this);   
+        violet1.setActionCommand("V1");
+        add(red1); add(orange1); add(yellow1); add(green1);
+        add(blue1); add(indigo1); add(violet1);        
+    }
+    
+    public static ColorPanel getInstance()
+    {
+        if(inst == null)
+            inst = new ColorPanel();
+        return inst;
+    }
+    
+    public void actionPerformed(ActionEvent evt)    //buttons call on the paint panel
+    {
+        System.out.println(evt.getActionCommand());
+        if(evt.getActionCommand().equals("R"))
+            ThePaintP.getInstance().setColor(Color.RED);
+        else if(evt.getActionCommand().equals("O"))
+            ThePaintP.getInstance().setColor(Color.ORANGE);
+        else if(evt.getActionCommand().equals("Y"))
+            ThePaintP.getInstance().setColor(Color.YELLOW);
+        else if(evt.getActionCommand().equals("G"))
+            ThePaintP.getInstance().setColor(Color.GREEN);
+        else if(evt.getActionCommand().equals("B"))
+            ThePaintP.getInstance().setColor(Color.BLUE);
+        else if(evt.getActionCommand().equals("I"))
+            ThePaintP.getInstance().setColor(INDIGO);
+        else if(evt.getActionCommand().equals("V"))
+            ThePaintP.getInstance().setColor(VIOLET);
+        else if(evt.getActionCommand().equals("R1"))
+            ThePaintP.getInstance().setBColor(Color.RED); 
+        else if(evt.getActionCommand().equals("O1"))
+            ThePaintP.getInstance().setBColor(Color.ORANGE);
+        else if(evt.getActionCommand().equals("Y1"))
+            ThePaintP.getInstance().setBColor(Color.YELLOW);
+        else if(evt.getActionCommand().equals("G1"))
+            ThePaintP.getInstance().setBColor(Color.GREEN);
+        else if(evt.getActionCommand().equals("B1"))
+            ThePaintP.getInstance().setBColor(Color.BLUE);
+        else if(evt.getActionCommand().equals("I1"))
+            ThePaintP.getInstance().setBColor(INDIGO);
+        else if(evt.getActionCommand().equals("V1"))
+            ThePaintP.getInstance().setBColor(VIOLET);        
+    }
+}
