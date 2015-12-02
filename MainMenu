@@ -1,0 +1,76 @@
+package MainFrame;
+
+import Draw.TheDrawP;
+import java.awt.Color;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import javax.swing.*;
+
+/**
+ * @author Jachi Madubuko
+ * @author Sam Knox
+**/
+
+public class MainMenu extends JMenuBar implements ActionListener 
+{
+    private static MainMenu inst;
+    MainMenu()
+    {
+           JMenu file = new JMenu("File");
+           JMenu edit = new JMenu("Edit");
+           JMenu choices = new JMenu("Choices");
+           JMenu help = new JMenu("Help");
+           
+           JMenuItem quit = new JMenuItem("Quit Paint");
+           JMenuItem newF = new JMenu("New");
+           JMenuItem about = new JMenuItem("About");
+           JMenuItem clr_all = new JMenuItem("Erase All");
+           JMenuItem undo = new JMenuItem("Undo");
+           
+           quit.addActionListener(this);
+           undo.addActionListener(this);
+           about.addActionListener(this);
+           clr_all.addActionListener(this);
+           newF.addActionListener(this);
+           
+           
+           file.add(quit);
+           file.add(newF);
+           
+           edit.add(undo);
+           edit.add(clr_all);
+           
+           help.add(about);
+           
+           add(file);
+           add(edit);
+           add(choices);
+           add(help);
+           setVisible(true);
+           
+    }
+    
+    public static MainMenu getInstance()
+    {
+        if(inst == null)
+            inst = new MainMenu();
+        return inst;
+    }
+    
+    public void actionPerformed(ActionEvent evt)
+    {
+        if(evt.getActionCommand()=="Erase All")
+        {
+            TheDrawP.getInstance().clr();
+            System.out.println(evt.getActionCommand());
+        }
+        if(evt.getActionCommand()=="Quit")
+        {
+        	TheWindowF.getInstance();
+        }
+        if(evt.getActionCommand()=="New")
+        {
+        	new TheWindowF();
+        }
+    }
+}
