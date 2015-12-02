@@ -1,0 +1,114 @@
+package Button;
+//imports
+import Draw.TheDrawP;
+import Draw.ThePaintP;
+import Draw.TheStrokeS;
+import java.awt.Color;
+import java.awt.FlowLayout;
+import java.awt.Graphics;
+import javax.swing.*;
+import java.awt.event.*;
+import javax.swing.JSeparator;
+/**
+ * @author Jachi Madubuko
+ * @author Sam Knox
+**/
+
+public class TheButtonP extends JPanel implements ActionListener
+{
+    private ImageIcon rF, rE, oF, oE, lN, pr, snd, fr, txt;
+    private JButton rectFill, rectEmpty,ovalFill, ovalEmpty, line, prColor, sndColor, strSize, free, print;
+    
+    public static TheButtonP inst;
+    
+    TheButtonP()
+    {
+        //JButtons for shapes functions
+        rF = TheDrawP.getInstance().DrawnButton(1);
+        rectFill = new JButton(rF);
+        rectFill.addActionListener(this);
+        
+        strSize = new JButton("Pix Size");
+        strSize.addActionListener(this);
+        
+        rE = TheDrawP.getInstance().DrawnButton(2);
+        rectEmpty = new JButton(rE);
+        rectEmpty.addActionListener(this);
+        
+        oF = TheDrawP.getInstance().DrawnButton(3);
+        ovalFill =  new JButton(oF);
+        ovalFill.addActionListener(this);
+        
+        oE = TheDrawP.getInstance().DrawnButton(4);
+        ovalEmpty =  new JButton(oE);
+        ovalEmpty.addActionListener(this); 
+        
+        lN = TheDrawP.getInstance().DrawnButton(5);
+        line = new JButton(lN);
+        line.addActionListener(this);
+        
+        pr = TheDrawP.getInstance().DrawnButton(1);
+        prColor = new JButton("Outline");
+        prColor.addActionListener(this);
+        
+        snd = TheDrawP.getInstance().DrawnButton(1);
+        sndColor = new JButton("Fill");
+        sndColor.addActionListener(this);
+        
+        fr = TheDrawP.getInstance().DrawnButton(6);
+        free = new JButton(fr);
+        free.addActionListener(this);
+        
+        txt = TheDrawP.getInstance().DrawnButton(7);
+        print = new JButton(txt);
+        print.addActionListener(this);
+        
+        setBackground(Color.LIGHT_GRAY);
+        setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+        add(rectFill);
+        add(rectEmpty);
+        add(ovalFill);
+        add(ovalEmpty);
+        add(line);
+        add(free);
+        add(print);
+        add(new JSeparator());
+        add(strSize);
+        add(new JSeparator());
+        add(prColor);
+        add(sndColor);
+    }
+    
+    public static TheButtonP getInstance()
+    {
+        if(inst == null)
+            inst = new TheButtonP();
+        return inst;
+    }
+   
+    public void actionPerformed(ActionEvent evt)    //buttons call on the paint panel
+    {
+        System.out.println(evt.getActionCommand());
+        if(evt.getSource().equals(rectFill))
+            TheDrawP.getInstance().setShape(1);
+        else if(evt.getSource().equals(rectEmpty))
+            TheDrawP.getInstance().setShape(2);
+        else if(evt.getSource().equals(ovalFill))
+            TheDrawP.getInstance().setShape(3);
+        else if(evt.getSource().equals(ovalEmpty))
+            TheDrawP.getInstance().setShape(4);
+        else if(evt.getSource().equals(line))
+            TheDrawP.getInstance().setShape(5);
+        else if(evt.getSource().equals(free))
+            TheDrawP.getInstance().setShape(6);
+        else if(evt.getSource().equals(prColor))
+            ThePaintP.getInstance().pickedColor(0);	
+        else if(evt.getSource().equals(sndColor))
+            ThePaintP.getInstance().pickedColor(1);
+        else if(evt.getSource().equals(strSize))
+            TheDrawP.getInstance().stroke();
+        else if(evt.getSource().equals(print))
+            TheDrawP.getInstance().setShape(7);
+        
+    }
+}
