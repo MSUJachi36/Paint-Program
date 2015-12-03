@@ -1,9 +1,7 @@
-package MainFrame;
-
-import Draw.ThePaintP;
-import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import javax.swing.*;
 
 /**
@@ -16,11 +14,35 @@ public class MainMenu extends JMenuBar implements ActionListener
     private static MainMenu inst;
     MainMenu()
     {
+           JMenu file = new JMenu("File");
            JMenu edit = new JMenu("Edit");
+           JMenu choices = new JMenu("Choices");
+           JMenu help = new JMenu("Help");
+           
+           JMenuItem quit = new JMenuItem("Quit Paint");
+           JMenuItem newF = new JMenu("New");
+           JMenuItem about = new JMenuItem("About");
            JMenuItem clr_all = new JMenuItem("Erase All");
+           JMenuItem undo = new JMenuItem("Undo");
+           
+           quit.addActionListener(this);
+           undo.addActionListener(this);
+           about.addActionListener(this);
            clr_all.addActionListener(this);
+           newF.addActionListener(this);
+           
+           file.add(quit);
+           file.add(newF);
+           
+           edit.add(undo);
            edit.add(clr_all);
+           
+           help.add(about);
+           
+           add(file);
            add(edit);
+           add(choices);
+           add(help);
            setVisible(true);
            
     }
@@ -36,8 +58,32 @@ public class MainMenu extends JMenuBar implements ActionListener
     {
         if(evt.getActionCommand()=="Erase All")
         {
-            ThePaintP.getInstance().clr();
+            TheDrawP.getInstance().clr();
             System.out.println(evt.getActionCommand());
+        }
+        if(evt.getActionCommand()=="Quit")
+        {
+        	TheWindowF.getInstance();
+        }
+        if(evt.getActionCommand()=="New")
+        {
+        	new TheWindowF();
+        }
+        if(evt.getActionCommand()=="About")
+        {
+            JFrame f = new JFrame("About");
+             
+            f.addWindowListener(new WindowAdapter()
+            {
+                public void windowClosing(WindowEvent e) 
+                {
+                    System.exit(0);
+                }
+            });
+ 
+        f.add(new AboutImage());
+        f.pack();
+        f.setVisible(true);        
         }
     }
 }
