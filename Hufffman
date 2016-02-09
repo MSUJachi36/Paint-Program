@@ -1,0 +1,93 @@
+public void code()
+        {
+            //traverse input string, for every character, i will access the codetable[] at index inputChar-65.
+            //the String at the index inputChar-65 will be added to the encode string, then print encode at the end of forloop
+            int ascii = 0;
+            for(int i = 0; i < input.length()-1; i++)
+            {
+                if((int) input.charAt(i) == 91)
+                    encode += codeTable[26];
+                else if((int) input.charAt(i) == 36)
+                    encode += codeTable[27];
+                else 
+                {
+                    encode += codeTable[(int) input.charAt(i) - 65];
+                }
+            }
+            System.out.println("The encoded message:" + encode);
+        }
+
+public void decode()
+        {
+            //start at root node and travarse the string "encode" using a for 
+            //loop, have am if statement that catches leaves, then concatentates and sends searching back to root (huff)
+            Tree curr = huff; 
+            for(int i = 0; i< encode.length(); i++)
+            {
+                if(encode.charAt(i)=='0')
+                    curr = curr.leftChild;
+                else if(encode.charAt(i)=='1')
+                    curr = curr.rightChild;
+                if(curr.root.ID != '#')
+                {
+                    decode += curr.root.ID;
+                    //System.out.println(decode);
+                    curr = huff;
+                }    
+            }
+            decode = deconverter(decode);
+            System.out.println("Decoded message:" + decode.substring(4));         
+	}
+        public void makeCodeTable()     
+        {
+            
+            System.out.print("Char | ");
+            for(Node FreqTable1 : freqTable)
+                System.out.printf("%c\t| ",FreqTable1.ID);
+            System.out.println();
+            System.out.print("Freq | ");
+            for(Node FreqTable1 : freqTable)
+                System.out.printf("%d\t| ",FreqTable1.freq);
+            System.out.println();
+            System.out.print("BinC | ");
+            for(String codeTable1 : codeTable)
+                System.out.printf("%s\t| ",codeTable1);
+            System.out.println();
+        }
+        
+        public void binCforTree(Tree t)
+        {
+            if(t.root.binCode == null)
+            {
+                t.root.binCode = "";
+            }
+            if(t.leftChild != null)
+            {
+                t.leftChild.root.binCode = t.root.binCode + '0';
+              // System.out.printf("Left child (%c) of Tree(%c) has binary Code '%s'\n", t.leftChild.root.ID, t.root.ID, t.leftChild.root.binCode);
+                binCforTree(t.leftChild);
+                if(t.leftChild.root.ID != '#')
+                    addToCodeTab(t.leftChild);
+            }
+            if(t.rightChild != null)
+            {
+                t.rightChild.root.binCode = t.root.binCode + '1';
+                //System.out.printf("Right child (%c) of Tree(%c) has binary Code '%s'\n", t.rightChild.root.ID,t.root.ID, t.rightChild.root.binCode);
+                binCforTree(t.rightChild);
+                if(t.rightChild.root.ID != '#')
+                    addToCodeTab(t.rightChild);
+            }
+            
+        }
+        
+        public void addToCodeTab(Tree t)
+        {
+            int ascii = t.root.ID;
+            if(ascii == 91)
+                codeTable[26] = t.root.binCode;
+            else if(ascii == 36)
+                codeTable[27] = t.root.binCode;
+            else
+                codeTable[ascii - 65] = t.root.binCode;
+            
+        }
